@@ -14,14 +14,19 @@
 
         <!-- Set the background colour of the document -->
         <style>
-            body {
-              background: #000000;
-              color:#cccccc;
-              margin: 0px;
-              padding: 0px;
-              border: 0px;
-              overflow: hidden;
-            }
+           html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
             canvas {
                       image-rendering: optimizeSpeed;
                       -webkit-interpolation-mode: nearest-neighbor;
@@ -74,13 +79,24 @@
     <body>
         <div class="gm4html5_div_class" id="gm4html5_div_id">
             <!-- Create the canvas element the game draws to -->
-            <canvas id="canvas" width="960" height="720">
+            <canvas id="canvas">
                <p>Your browser doesn't support HTML5 canvas.</p>
             </canvas>
         </div>
 
         <!-- Run the game code -->
         <script type="text/javascript" src="assets/SpelunkyClassicHD.js"></script>
-        <script>window.onload = GameMaker_Init;</script>
+        <script>
+            function resizeCanvas() {
+            const canvas = document.getElementById('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+            window.addEventListener('resize', resizeCanvas);
+            window.onload = () => {
+                resizeCanvas();
+                GameMaker_Init();
+            };
+            window.onload = GameMaker_Init;</script>
     </body>
 </html>
